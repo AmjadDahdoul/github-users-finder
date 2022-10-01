@@ -1,19 +1,29 @@
 import { BsStar, BsFillStarFill, BsSearch } from "react-icons/bs";
-import { useOutletContext } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Router, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Users = () => {
   const { users } = useOutletContext();
-  const fav = [];
+  const navigate = useNavigate();
+  const [fav, setFav] = useState([]);
   const [btnState, setBtnState] = useState(false);
 
   const handleFavorite = (user) => {
-    fav.push(user);
+    setFav((prev) => [...prev, user]);
     localStorage.setItem("usr", JSON.stringify(fav));
     //setBtnState(!btnState);
     console.log(fav);
   };
+
+  const handleOnClick = (link) => {
+    navigate(link);
+  };
+
+  useEffect(() => {
+    let locS = JSON.parse(localStorage.getItem("usr")) || [];
+    setFav(locS);
+  }, []);
 
   return (
     <div className="users-list">
@@ -24,18 +34,19 @@ const Users = () => {
               key={index}
               className="d-flex flex-column flex-lg-row mx-3 border-bottom p-2 align-items-center justify-content-between"
             >
-              <Link key={index} to={`/users/${user.login}`}>
-                <div className="d-flex align-items-center user-info">
-                  <img
-                    className="img-fluid rounded-circle user-image"
-                    src={user.avatar_url}
-                  />
-                  <div className="ms-4">
-                    <h4>@{user.login}</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                  </div>
+              <div
+                className="d-flex align-items-center user-info"
+                onClick={() => handleOnClick(`/users/${user.login}`)}
+              >
+                <img
+                  className="img-fluid rounded-circle user-image"
+                  src={user.avatar_url}
+                />
+                <div className="ms-4">
+                  <h4>@{user.login}</h4>
+                  <p>Lorem ipsum dolor sit amet consectetur.</p>
                 </div>
-              </Link>
+              </div>
               <button
                 className="bg-light border-0"
                 onClick={() => handleFavorite(user)}
@@ -43,7 +54,7 @@ const Users = () => {
                 {!btnState ? (
                   <BsStar className="fs-2" />
                 ) : (
-                  <BsFillStarFill className="fs-2" />
+                  <BsFillStarFill className="fs-2 " />
                 )}
               </button>
             </div>

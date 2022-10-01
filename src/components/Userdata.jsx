@@ -6,23 +6,20 @@ import { useParams } from "react-router-dom";
 const UserData = ({}) => {
   let { username } = useParams();
   const [data, setData] = useState({});
-  // const [fav, setFav] = useState([
-  //   { name: "amjad", age: 15 },
-  //   { name: "osama", age: 13 },
-  // ]);
+  const [btnState, setBtnState] = useState(false);
   const fav = [{}];
 
   useEffect(() => {
+    console.log("getUsers");
     const getUsers = async () => {
-      // Default options are marked with *
       try {
         const response = await fetch(
           `https://api.github.com/users/${username}`,
           {
-            method: "GET", // *GET, POST, PUT, DELETE, etc.
+            method: "GET",
             headers: {
               Accept: "application/vnd.github+json",
-              Authorization: "bearer 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", // move to .env file
+              Authorization: "bearer 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", // move to .env file
             },
           }
         );
@@ -37,14 +34,6 @@ const UserData = ({}) => {
 
     getUsers();
   }, []);
-
-  // const handleFavorite = () => {
-  //   fav.push(data.login);
-  //   console.log(localStorage.getItem("userLogin"));
-  //   console.log(fav);
-  // };
-
-  const [btnState, setBtnState] = useState(false);
 
   const handleFavorite = () => {
     setBtnState(!btnState);

@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import Search from "../components/Search";
 import { Container } from "react-bootstrap";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import "../App.css";
 import { useSearchParams } from "react-router-dom";
 
@@ -9,21 +9,31 @@ function App() {
   const [users, setUsers] = useState([]);
   const [scrollDir, setScrollDir] = useState("false");
   let [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
 
   const handleUserOnChange = (usersList) => {
-    if (users.length) {
-      setUsers((prevUsers) => [...prevUsers, ...usersList]);
+    //&& location.search === "?paginate=true"
+    if (usersList === undefined) {
+      setUsers([]);
     } else {
-      setUsers(usersList);
+      if (users && !!users.length) {
+        setUsers((prevUsers) => [...prevUsers, ...usersList]);
+      } else {
+        setUsers(usersList);
+      }
     }
   };
 
   useEffect(() => {
     const onScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        console.log("first");
+      if (
+        window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+        location.pathname === "/"
+      ) {
         setScrollDir("true");
-        setSearchParams({ page: 1 });
+        // if (location.search !== "?paginate=true") {
+        setSearchParams({ paginate: true });
+        //  }
       }
     };
 

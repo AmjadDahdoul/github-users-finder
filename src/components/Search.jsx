@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 
 const Search = ({ usersList }) => {
   const [searchUsers, setSearchUsers] = useState("");
-  const { username } = useParams();
+  const { username, paginate } = useParams();
   const listInnerRef = useRef();
   const location = useLocation();
   const [pageNumber, setPageNumber] = useState(1);
@@ -23,15 +23,14 @@ const Search = ({ usersList }) => {
   };
 
   const getUsers = async () => {
-    // Default options are marked with *
     try {
       const response = await fetch(
-        `https://api.github.com/search/users?q=${searchUsers}&page=${pageNumber}&per_page=20`,
+        `https://api.github.com/search/users?q=${searchUsers}&page=${pageNumber}&per_page=10`,
         {
-          method: "GET", // *GET, POST, PUT, DELETE, etc.
+          method: "GET",
           headers: {
             Accept: "application/vnd.github+json",
-            Authorization: "bearer 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", // move to .env file
+            Authorization: "bearer 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", // move to .env file
           },
         }
       );
@@ -44,7 +43,7 @@ const Search = ({ usersList }) => {
   };
 
   useEffect(() => {
-    if (searchUsers) getUsers();
+    getUsers();
   }, [searchUsers]);
 
   useEffect(() => {

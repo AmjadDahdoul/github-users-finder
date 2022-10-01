@@ -6,7 +6,9 @@ const Favorites = () => {
   const favUser = JSON.parse(localStorage.getItem("usr"));
 
   const removeFromFavorite = (user) => {
-    localStorage.removeItem("usr");
+    // localStorage.removeItem("usr");
+
+    favUser.find((userLoc) => userLoc.login === user.login);
   };
 
   return (
