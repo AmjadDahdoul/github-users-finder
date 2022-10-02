@@ -37,8 +37,12 @@ const Search = ({ usersList }: any) => {
   }, [searchUsers]);
 
   useEffect(() => {
-    if (searchUsers && location.search) {
+    if (searchUsers && location.search.includes('paginate=true')) {
       setPageNumber(pageNumber + 5);
+      getUsers();
+    }
+
+    if (searchUsers && location.search.includes('refresh=true')) {
       getUsers();
     }
   }, [location]);
