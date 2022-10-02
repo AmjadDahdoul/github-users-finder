@@ -2,18 +2,25 @@ import { BsStar, BsFillStarFill, BsSearch } from "react-icons/bs";
 import { Router, useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import {
+  addToFavorite,
+  checkFavorite,
+  removeFromFavorite,
+} from "./FavoriteManager";
 
 const Users = () => {
-  const { users } = useOutletContext();
+  const { fetchedUsers } = useOutletContext();
+  const [users, setUsers] = useState(fetchedUsers);
   const navigate = useNavigate();
-  const [fav, setFav] = useState([]);
-  const [btnState, setBtnState] = useState(false);
 
   const handleFavorite = (user) => {
-    setFav((prev) => [...prev, user]);
-    localStorage.setItem("usr", JSON.stringify(fav));
-    //setBtnState(!btnState);
-    console.log(fav);
+    if (user.isFavorite) {
+      removeFromFavorite(user);
+    } else {
+      addToFavorite(user);
+    }
+    user.isFavorite = !user.isFavorite;
+    setUsers(users.flat());
   };
 
   const handleOnClick = (link) => {
@@ -21,9 +28,12 @@ const Users = () => {
   };
 
   useEffect(() => {
-    let locS = JSON.parse(localStorage.getItem("usr")) || [];
-    setFav(locS);
-  }, []);
+    setUsers(
+      fetchedUsers.map((user) => {
+        return { ...user, isFavorite: checkFavorite(user.login) };
+      })
+    );
+  }, [fetchedUsers]);
 
   return (
     <div className="users-list">
@@ -51,10 +61,10 @@ const Users = () => {
                 className="bg-light border-0"
                 onClick={() => handleFavorite(user)}
               >
-                {!btnState ? (
+                {!user.isFavorite ? (
                   <BsStar className="fs-2" />
                 ) : (
-                  <BsFillStarFill className="fs-2 " />
+                  <BsFillStarFill color="#F2C94C" className="fs-2 " />
                 )}
               </button>
             </div>

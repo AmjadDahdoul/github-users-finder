@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import { ExclamationLg } from "react-bootstrap-icons";
 import { BsStar, BsFillStarFill, BsSearch } from "react-icons/bs";
 import { useParams } from "react-router-dom";
+import {
+  addToFavorite,
+  checkFavorite,
+  removeFromFavorite,
+} from "./FavoriteManager";
 
 const UserData = ({}) => {
   let { username } = useParams();
   const [data, setData] = useState({});
-  const [btnState, setBtnState] = useState(false);
+  const [btnState, setBtnState] = useState(checkFavorite(username));
   const fav = [{}];
 
   useEffect(() => {
@@ -19,7 +24,7 @@ const UserData = ({}) => {
             method: "GET",
             headers: {
               Accept: "application/vnd.github+json",
-              Authorization: "bearer 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", // move to .env file
+              Authorization: "bearer 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", // move to .env file
             },
           }
         );
@@ -31,11 +36,15 @@ const UserData = ({}) => {
         console.log(error);
       }
     };
-
     getUsers();
   }, []);
 
-  const handleFavorite = () => {
+  const handleFavorite = (user) => {
+    if (btnState) {
+      removeFromFavorite(user);
+    } else {
+      addToFavorite(user);
+    }
     setBtnState(!btnState);
   };
 
@@ -70,11 +79,14 @@ const UserData = ({}) => {
                   </div>
                 </div>
               </div>
-              <button className="bg-light border-0 " onClick={handleFavorite}>
+              <button
+                className="bg-light border-0 "
+                onClick={() => handleFavorite(data)}
+              >
                 {!btnState ? (
                   <BsStar className="fs-2" />
                 ) : (
-                  <BsFillStarFill className="fs-2" />
+                  <BsFillStarFill color="#F2C94C" className="fs-2 " />
                 )}
               </button>
             </div>

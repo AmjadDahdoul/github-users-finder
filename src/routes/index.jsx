@@ -16,11 +16,12 @@ function App() {
     if (usersList === undefined) {
       setUsers([]);
     } else {
-      if (users && !!users.length) {
-        setUsers((prevUsers) => [...prevUsers, ...usersList]);
-      } else {
-        setUsers(usersList);
-      }
+      // if (users && !!users.length) {
+      //   setUsers((prevUsers) => [...prevUsers, ...usersList]);
+      // } else {
+      setUsers(usersList);
+
+      // }
     }
   };
 
@@ -46,7 +47,7 @@ function App() {
     <div className="App">
       <Search usersList={handleUserOnChange} />
       <Container className="main-container">
-        <Outlet context={{ users }} />
+        <Outlet context={{ fetchedUsers: users }} />
       </Container>
     </div>
   );

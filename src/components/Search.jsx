@@ -12,7 +12,7 @@ const Search = ({ usersList }) => {
   const { username, paginate } = useParams();
   const listInnerRef = useRef();
   const location = useLocation();
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(10);
 
   const handleOnSearchChange = (e) => {
     if (e.target.value.trim().length >= 3 || e.target.value.trim() === "") {
@@ -25,12 +25,12 @@ const Search = ({ usersList }) => {
   const getUsers = async () => {
     try {
       const response = await fetch(
-        `https://api.github.com/search/users?q=${searchUsers}&page=${pageNumber}&per_page=10`,
+        `https://api.github.com/search/users?q=${searchUsers}&page=1&per_page=${pageNumber}`,
         {
           method: "GET",
           headers: {
             Accept: "application/vnd.github+json",
-            Authorization: "bearer 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", // move to .env file
+            Authorization: "bearer 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", // move to .env file
           },
         }
       );
@@ -48,7 +48,7 @@ const Search = ({ usersList }) => {
 
   useEffect(() => {
     if (searchUsers && location.search) {
-      setPageNumber(pageNumber + 1);
+      setPageNumber(pageNumber + 5);
       getUsers();
     }
   }, [location]);
@@ -74,7 +74,7 @@ const Search = ({ usersList }) => {
                 onChange={(e) => handleOnSearchChange(e)}
               />
               <Link to="/Favorties" className="bg-light border-0 px-4">
-                <BsStar className="fs-2 " />
+                <BsStar color="#000" className="fs-2 " />
               </Link>
             </Form>
           </Container>
@@ -98,7 +98,7 @@ const Search = ({ usersList }) => {
             </div>
             {location.pathname === "/Favorties" ? (
               <div to="/Favorties" className="bg-light border-0 px-4">
-                <BsFillStarFill className="fs-2 " />
+                <BsFillStarFill color="#F2C94C" className="fs-2 " />
               </div>
             ) : (
               ""
