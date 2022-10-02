@@ -5,13 +5,13 @@ import { Outlet, useLocation } from "react-router-dom";
 import "../App.css";
 import { useSearchParams } from "react-router-dom";
 
-function App() {
+function Layout() {
   const [users, setUsers] = useState([]);
   const [scrollDir, setScrollDir] = useState("false");
   let [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
 
-  const handleUserOnChange = (usersList) => {
+  const handleUserOnChange = (usersList: any) => {
     //&& location.search === "?paginate=true"
     if (usersList === undefined) {
       setUsers([]);
@@ -33,7 +33,7 @@ function App() {
       ) {
         setScrollDir("true");
         // if (location.search !== "?paginate=true") {
-        setSearchParams({ paginate: true });
+        setSearchParams({ paginate: 'true' });
         //  }
       }
     };
@@ -53,4 +53,4 @@ function App() {
   );
 }
 
-export default App;
+export default Layout;

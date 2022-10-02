@@ -1,19 +1,19 @@
 import { BsStar, BsFillStarFill, BsSearch } from "react-icons/bs";
-import { Router, useOutletContext } from "react-router-dom";
+import { Link, Router, useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
   addToFavorite,
   checkFavorite,
   removeFromFavorite,
-} from "./FavoriteManager";
+} from "../helpers";
 
 const Users = () => {
-  const { fetchedUsers } = useOutletContext();
-  const [users, setUsers] = useState(fetchedUsers);
-  const navigate = useNavigate();
+  const { fetchedUsers }: any = useOutletContext();
+  const [users, setUsers]: any = useState(fetchedUsers);
+  const navigate: any = useNavigate();
 
-  const handleFavorite = (user) => {
+  const handleFavorite = (user: any) => {
     if (user.isFavorite) {
       removeFromFavorite(user);
     } else {
@@ -23,13 +23,9 @@ const Users = () => {
     setUsers(users.flat());
   };
 
-  const handleOnClick = (link) => {
-    navigate(link);
-  };
-
   useEffect(() => {
     setUsers(
-      fetchedUsers.map((user) => {
+      fetchedUsers.map((user: any) => {
         return { ...user, isFavorite: checkFavorite(user.login) };
       })
     );
@@ -37,26 +33,26 @@ const Users = () => {
 
   return (
     <div className="users-list">
-      <div className="mx-auto bg-light mt-3 border rounded shadow">
-        {users && !!users.length ? (
-          users.map((user, index) => (
+      {users && !!users.length ? (
+        <div className="mx-auto bg-light mt-3 border rounded shadow">
+
+          {users.map((user: any, index: number) => (
             <div
               key={index}
               className="d-flex flex-column flex-lg-row mx-3 border-bottom p-2 align-items-center justify-content-between"
             >
-              <div
-                className="d-flex align-items-center user-info"
-                onClick={() => handleOnClick(`/users/${user.login}`)}
+              <Link to={`/users/${user.login}`}
+                className="d-flex  flex-column flex-lg-row align-items-center user-info"
               >
                 <img
                   className="img-fluid rounded-circle user-image"
                   src={user.avatar_url}
                 />
                 <div className="ms-4">
-                  <h4>@{user.login}</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur.</p>
+                  <h4 className="m-0 mb-1">@{user.login}</h4>
+                  <p className="bio m-0">Lorem ipsum dolor sit amet consectetur.</p>
                 </div>
-              </div>
+              </Link>
               <button
                 className="bg-light border-0"
                 onClick={() => handleFavorite(user)}
@@ -68,15 +64,16 @@ const Users = () => {
                 )}
               </button>
             </div>
-          ))
-        ) : (
-          <p className="d-flex justify-content-center p-3 fs-2">
-            no search results...
-          </p>
-        )}
-      </div>
-    </div>
-  );
-};
+          ))}
+        </div>
+      ) : <p className="d-flex justify-content-center p-3 fs-2">
+        no search results...
+      </p>
+      }
 
+    </div>
+  )
+}
 export default Users;
+
+

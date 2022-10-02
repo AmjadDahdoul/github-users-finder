@@ -6,15 +6,16 @@ import { BsStar, BsFillStarFill, BsSearch, BsArrowLeft } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { githubApi } from "../helpers/api";
 
-const Search = ({ usersList }) => {
+const Search = ({ usersList }: any) => {
   const [searchUsers, setSearchUsers] = useState("");
   const { username, paginate } = useParams();
   const listInnerRef = useRef();
   const location = useLocation();
   const [pageNumber, setPageNumber] = useState(10);
 
-  const handleOnSearchChange = (e) => {
+  const handleOnSearchChange = (e: any) => {
     if (e.target.value.trim().length >= 3 || e.target.value.trim() === "") {
       setTimeout(() => {
         setSearchUsers(e.target.value);
@@ -24,19 +25,8 @@ const Search = ({ usersList }) => {
 
   const getUsers = async () => {
     try {
-      const response = await fetch(
-        `https://api.github.com/search/users?q=${searchUsers}&page=1&per_page=${pageNumber}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/vnd.github+json",
-            Authorization: "bearer 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", // move to .env file
-          },
-        }
-      );
-      const data = await response.json();
-      usersList(data.items);
-      // return response.json(); // parses JSON response into native JavaScript objects
+      const data: any = await githubApi(`/search/users?q=${searchUsers}&page=1&per_page=${pageNumber}`);
+      usersList(data?.items);
     } catch (error) {
       console.log(error);
     }
@@ -97,15 +87,16 @@ const Search = ({ usersList }) => {
               </div>
             </div>
             {location.pathname === "/Favorties" ? (
-              <div to="/Favorties" className="bg-light border-0 px-4">
-                <BsFillStarFill color="#F2C94C" className="fs-2 " />
+              <div className="bg-light border-0 px-4">
+                < BsFillStarFill color="#F2C94C" className="fs-2 " />
               </div>
             ) : (
               ""
             )}
           </Container>
         </Navbar>
-      )}
+      )
+      }
     </>
   );
 };

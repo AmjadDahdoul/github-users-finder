@@ -9,6 +9,12 @@
   max-width: 160px;
 }
 
+.users-list .user-info {
+ text-decoration: none;
+}
+.users-list .user-info .bio {
+  color: #000;
+}
 @media (min-width: 991px) {
   .main-container {
       width: 50%;
