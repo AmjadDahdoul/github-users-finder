@@ -12,12 +12,12 @@ const Search = ({ usersList }: any) => {
   const [searchUsers, setSearchUsers] = useState("");
   const { username } = useParams();
   const location = useLocation();
-  const [pageNumber, setPageNumber] = useState(10);
+  const [pageNumber, setPageNumber] = useState(15);
 
-  const handleOnSearchChange = (e: any) => {
-    if (e.target.value.trim().length >= 3 || e.target.value.trim() === "") {
+  const handleOnSearchChange = (event: any) => {
+    if (event.target.value.trim().length >= 3 || event.target.value.trim() === "") {
       setTimeout(() => {
-        setSearchUsers(e.target.value);
+        setSearchUsers(event.target.value);
       }, 500);
     }
   };
@@ -37,7 +37,7 @@ const Search = ({ usersList }: any) => {
 
   useEffect(() => {
     if (searchUsers && location.search.includes('paginate=true')) {
-      setPageNumber(pageNumber + 5);
+      setPageNumber(pageNumber + 10);
       getUsers();
     }
 
@@ -64,10 +64,10 @@ const Search = ({ usersList }: any) => {
                 placeholder="Search for GitHub users..."
                 className="mx-2 border-0 bg-light"
                 aria-label="Search"
-                onChange={(e) => handleOnSearchChange(e)}
+                onChange={(event) => handleOnSearchChange(event)}
               />
               <Link to="/Favorties" className="bg-light border-0 px-4">
-                <BsStar color="#000" className="fs-2 " />
+                <BsStar color="#000" className="fs-2 mx-2" />
               </Link>
             </Form>
           </Container>
@@ -78,8 +78,8 @@ const Search = ({ usersList }: any) => {
           expand="lg"
           className="shadow justify-content-center"
         >
-          <Container className="main-container">
-            <div className="d-flex w-100 align-items-center">
+          <Container className="main-container d-flex">
+            <div className="d-flex align-items-center">
               <Link to="/">
                 <h3 className="left-arrow">
                   <BsArrowLeft />
@@ -90,8 +90,8 @@ const Search = ({ usersList }: any) => {
               </div>
             </div>
             {location.pathname === "/Favorties" ? (
-              <div className="bg-light border-0 px-4">
-                < BsFillStarFill color="#F2C94C" className="fs-2 " />
+              <div className="bg-light border-0 px-4 mx-2">
+                < BsFillStarFill color="#F2C94C" className="fs-2" />
               </div>
             ) : (
               ""

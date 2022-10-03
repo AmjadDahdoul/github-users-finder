@@ -6,7 +6,7 @@ import "../App.css";
 import { useSearchParams } from "react-router-dom";
 import PullToRefresh from 'react-simple-pull-to-refresh';
 
-function Layout() {
+const Layout = () => {
   const [users, setUsers] = useState([]);
   const [scrollDir, setScrollDir] = useState("false");
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,7 +25,6 @@ function Layout() {
     if (location.pathname === '/') setSearchParams({ refresh: 'true' });
   }
 
-
   useEffect(() => {
     const onScroll = () => {
       if (
@@ -36,9 +35,7 @@ function Layout() {
         setSearchParams({ paginate: 'true' });
       }
     };
-
     window.addEventListener("scroll", onScroll);
-
     return () => window.removeEventListener("scroll", onScroll);
   }, [scrollDir]);
 

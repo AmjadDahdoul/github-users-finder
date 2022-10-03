@@ -44,17 +44,17 @@ const UserData = () => {
     <div className="user-list">
       {data.login != null ? (
         <div className="mx-auto bg-light  mt-3 border rounded shadow">
-          <div className="d-flex flex-column flex-lg-row mx-3 border-bottom p-2 align-items-center justify-content-between">
-            <div className="d-flex align-items-center user-info">
-              <img className="img-fluid  user-image" src={data.avatar_url} />
+          <div className="d-flex flex-column flex-md-row  align-items-center justify-content-between p-3 ">
+            <div className="user-info d-flex flex-column flex-md-row ">
+              <img className="img-fluid user-image  mb-4 mb-md-0 mx-auto" src={data.avatar_url} />
               <div className="ms-4">
                 <h4>{data.name}</h4>
                 <a href={`https://github.com/${data.login}`} target="_blank">
                   <h5>@{data.login}</h5>
                 </a>
-                <p>{data?.bio || ""}</p>
+                <p>{data?.bio}</p>
 
-                <div className="d-flex align-items-end text-center">
+                <div className="d-flex  text-md-center">
                   <div className="">
                     <h3>{data.followers}</h3>
                     <p>Followers</p>
@@ -70,16 +70,18 @@ const UserData = () => {
                 </div>
               </div>
             </div>
-            <button
-              className="bg-light border-0 "
-              onClick={() => handleFavorite(data)}
-            >
-              {!btnState ? (
-                <BsStar className="fs-2" />
-              ) : (
-                <BsFillStarFill color="#F2C94C" className="fs-2 " />
-              )}
-            </button>
+            <div className="fav-button">
+              <button
+                className="bg-light border-0"
+                onClick={() => handleFavorite(data)}
+              >
+                {!btnState ? (
+                  <BsStar className="fs-2" />
+                ) : (
+                  <BsFillStarFill color="#F2C94C" className="fs-2 " />
+                )}
+              </button>
+            </div>
           </div>
         </div>
       ) : (
@@ -87,6 +89,7 @@ const UserData = () => {
           : `There is no user with this ID: ${username}.`}</b>
       )}
     </div>
+
   );
 };
 

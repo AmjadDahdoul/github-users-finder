@@ -26,6 +26,11 @@
     }
 }
 
+@media (min-width: 768px) {
+  .fav-button {
+    align-self: start;
+  }
+}
 body{
   background-color: #EFEFEF;
 }

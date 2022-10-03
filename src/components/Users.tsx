@@ -40,14 +40,14 @@ const Users = () => {
               className="d-flex flex-column flex-lg-row mx-3 border-bottom p-2 align-items-center justify-content-between"
             >
               <Link to={`/users/${user.login}`}
-                className="d-flex  flex-column flex-lg-row align-items-center user-info"
+                className="d-flex flex-column flex-lg-row align-items-center user-info text-lg-start text-sm-center"
               >
                 <img
                   className="img-fluid rounded-circle user-image"
                   src={user.avatar_url}
                 />
                 <div className="ms-4">
-                  <h4 className="m-0 mb-1">@{user.login}</h4>
+                  <h4 className="m-0 mb-1 ">@{user.login}</h4>
                   <p className="bio m-0">Lorem ipsum dolor sit amet consectetur.</p>
                 </div>
               </Link>
@@ -58,7 +58,7 @@ const Users = () => {
                 {!user.isFavorite ? (
                   <BsStar className="fs-2" />
                 ) : (
-                  <BsFillStarFill color="#F2C94C" className="fs-2 " />
+                  <BsFillStarFill color="#F2C94C" className="fs-2" />
                 )}
               </button>
             </div>
