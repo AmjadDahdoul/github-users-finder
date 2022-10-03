@@ -1,6 +1,5 @@
 import { BsStar, BsFillStarFill, BsSearch } from "react-icons/bs";
-import { Link, Router, useOutletContext } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
   addToFavorite,
@@ -11,7 +10,6 @@ import {
 const Users = () => {
   const { fetchedUsers }: any = useOutletContext();
   const [users, setUsers]: any = useState(fetchedUsers);
-  const navigate: any = useNavigate();
 
   const handleFavorite = (user: any) => {
     if (user.isFavorite) {
@@ -70,7 +68,6 @@ const Users = () => {
         no search results...
       </p>
       }
-
     </div>
   )
 }

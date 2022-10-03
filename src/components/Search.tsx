@@ -10,8 +10,7 @@ import { githubApi } from "../helpers/api";
 
 const Search = ({ usersList }: any) => {
   const [searchUsers, setSearchUsers] = useState("");
-  const { username, paginate } = useParams();
-  const listInnerRef = useRef();
+  const { username } = useParams();
   const location = useLocation();
   const [pageNumber, setPageNumber] = useState(10);
 
@@ -82,7 +81,7 @@ const Search = ({ usersList }: any) => {
           <Container className="main-container">
             <div className="d-flex w-100 align-items-center">
               <Link to="/">
-                <h3>
+                <h3 className="left-arrow">
                   <BsArrowLeft />
                 </h3>
               </Link>

@@ -1,17 +1,22 @@
 .main-container {
   width: 100%;
 }
+
+.main-container .left-arrow{
+  color: #000;
+}
 .users-list .user-info .user-image{
   max-width: 80px;
 }
 
 .user-list .user-info .user-image {
-  max-width: 160px;
+  max-width: 180px;
 }
 
 .users-list .user-info {
  text-decoration: none;
 }
+
 .users-list .user-info .bio {
   color: #000;
 }

@@ -14,16 +14,10 @@ function Layout() {
   const location = useLocation();
 
   const handleUserOnChange = (usersList: any) => {
-    //&& location.search === "?paginate=true"
     if (usersList === undefined) {
       setUsers([]);
     } else {
-      // if (users && !!users.length) {
-      //   setUsers((prevUsers) => [...prevUsers, ...usersList]);
-      // } else {
       setUsers(usersList);
-
-      // }
     }
   };
 
@@ -39,9 +33,7 @@ function Layout() {
         location.pathname === "/"
       ) {
         setScrollDir("true");
-        // if (location.search !== "?paginate=true") {
         setSearchParams({ paginate: 'true' });
-        //  }
       }
     };
 

@@ -11,9 +11,10 @@ const Favorites = () => {
   };
   return (
     <div className="users-list">
-      <div className="mx-auto bg-light mt-3 border rounded shadow">
-        {favUsers && !!favUsers?.length ? (
-          favUsers.map((user: any, index: any) => (
+      {favUsers && !!favUsers?.length ? (
+        <div className="mx-auto bg-light mt-3 border rounded shadow">
+
+          {favUsers.map((user: any, index: any) => (
             <div
               key={index}
               className="d-flex flex-column flex-lg-row mx-3 border-bottom p-2 align-items-center justify-content-between"
@@ -26,9 +27,9 @@ const Favorites = () => {
                   />
                   <div className="ms-4">
                     <Link to={`/users/${user.login}`}>
-                      <h4>@{user?.login}</h4>
+                      <h4 className="m-0">@{user?.login}</h4>
                     </Link>
-                    <p>Lorem ipsum dolor sit amet consectetur.</p>
+                    <p className="m-0">Lorem ipsum dolor sit amet consectetur.</p>
                   </div>
                 </div>
               </div>
@@ -39,13 +40,14 @@ const Favorites = () => {
                 <BsFillStarFill color="#F2C94C" className="fs-2 " />
               </button>
             </div>
-          ))
-        ) : (
-          <p className="d-flex justify-content-center p-3 fs-2 ">
-            Favorites are empty...
-          </p>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <p className="d-flex justify-content-center p-3 fs-2 ">
+          Favorite is empty...
+        </p>
+      )}
+
     </div>
   );
 };

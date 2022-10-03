@@ -23,7 +23,6 @@ const UserData = () => {
         const data: any = await githubApi(`/users/${username}`);
         setData(data);
         setIsLoading(false);
-        // return response.json(); // parses JSON response into native JavaScript objects
       } catch (error) {
         console.log(error);
         setIsLoading(false);
@@ -64,7 +63,7 @@ const UserData = () => {
                     <h3>{data.following}</h3>
                     <p>Following</p>
                   </div>
-                  <div className="mx-3">
+                  <div className="mx-2">
                     <h3>{data.public_repos}</h3>
                     <p>Repos</p>
                   </div>
